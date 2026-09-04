@@ -1,4 +1,7 @@
+import utils.PerimetreCercle
 import kotlin.math.abs
+import utils.calculerPuissance
+import utils.calculerTension
 /*
 fun main(){
     val age:  String?
@@ -72,6 +75,7 @@ fun main(){
     println("moyenne : ${somme / compteur}")
 }
  */
+/*
 fun main(){
     println("donnez un mot : ")
     val mot:  String? = readlnOrNull()
@@ -85,4 +89,20 @@ fun main(){
             println(mot)
     }
 
+}
+ */
+fun main() {
+    println("Valeur de la résistance (en Ohm) (>=0) ?");
+    val R = readlnOrNull()?.toDoubleOrNull()
+    println("Valeur de l'intensité (en Ampère) (>=0) ?");
+    val L = readlnOrNull()?.toDoubleOrNull()
+    if (R != null && L != null) {
+        if(R > 0 && L > 0) {
+            println(calculerTension(R, L))
+        }else{
+            println("Erreur(s) de saisie : résistance ou intensité < 0.")
+        }
+    }else{
+        println("Erreur(s) de saisie sur la résistance ou l'intensité.")
+    }
 }
