@@ -1,7 +1,8 @@
 package Test.utils
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import org.junit.Assert.assertEquals
+import org.junit.Test
+
 import utils.dureeSurTerre
 import utils.longueurSurTerre
 import utils.vitesseRepereTerre

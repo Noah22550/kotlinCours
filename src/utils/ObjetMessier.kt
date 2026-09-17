@@ -18,4 +18,5 @@ class ObjetMessier(val numero: Int, val nom: String, typeInitial: String){
 
     val estVisibleAOeilNu: Boolean
         get() = magnitudeApparente < 6.0
+
 }

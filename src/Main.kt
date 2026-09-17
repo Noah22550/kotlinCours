@@ -1,3 +1,5 @@
+import utils.Fraction
+import utils.ObjetMessier
 import utils.PerimetreCercle
 import kotlin.math.abs
 import utils.calculerPuissance
@@ -91,18 +93,16 @@ fun main(){
 
 }
  */
+
 fun main() {
-    println("Valeur de la résistance (en Ohm) (>=0) ?");
-    val R = readlnOrNull()?.toDoubleOrNull()
-    println("Valeur de l'intensité (en Ampère) (>=0) ?");
-    val L = readlnOrNull()?.toDoubleOrNull()
-    if (R != null && L != null) {
-        if(R > 0 && L > 0) {
-            println(calculerTension(R, L))
-        }else{
-            println("Erreur(s) de saisie : résistance ou intensité < 0.")
-        }
-    }else{
-        println("Erreur(s) de saisie sur la résistance ou l'intensité.")
-    }
+    val andromede = ObjetMessier(31, "Andromede", "galaxie")
+    andromede.magnitudeApparente = 3.4
+    println(andromede)
+
+    val a = Fraction(1, 2) // dénomitateur à 1 par défaut
+    val b = Fraction(1,3)
+    println("a+b (surcharge de la méthode associée plus) : ${a+b}") // a+b retourne un objet Fraction, et appel méthode toString implicite
+    println("a-b (surcharge de la méthode associée plus) : ${a-b}")
+    println("a*b (surcharge de la méthode associée plus) : ${a*b}")
+    println("a/b (surcharge de la méthode associée plus) : ${-a}")
 }

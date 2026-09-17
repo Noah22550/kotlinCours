@@ -1,6 +1,6 @@
 package utils
-
 import kotlin.math.*
+import kotlin.math.pow
 
 private const val C = 299792.458
 fun dureeSurTerre(pDuree: Double, pVitesseFusee: Double): Double {
