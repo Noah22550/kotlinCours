@@ -1,6 +1,12 @@
+import utils.Conteneur
 import utils.Fraction
+import utils.Livre
+import utils.MaterielInformatique
+import utils.caisseBoisson
 import utils.ObjetMessier
 import utils.PerimetreCercle
+import utils.bibliotheque
+
 import kotlin.math.abs
 import utils.calculerPuissance
 import utils.calculerTension
@@ -79,22 +85,23 @@ fun main(){
  */
 /*
 fun main(){
-    println("donnez un mot : ")
-    val mot:  String? = readlnOrNull()
-    println("combien de répition ?")
-    val repition = readlnOrNull()?.toIntOrNull()
-    if(repition != null && mot != null) {
-        repeat(repition) {
+        println("donnez un mot : ")
+        val mot: String? = readlnOrNull()
+        println("combien de répition ?")
+        val repition = readlnOrNull()?.toIntOrNull()
+        if (repition != null && mot != null) {
+            repeat(repition) {
+                println(mot)
+            }
+        } else {
             println(mot)
         }
-        }else{
-            println(mot)
     }
 
 }
- */
+*/
 
-fun main() {
+/*
     val andromede = ObjetMessier(31, "Andromede", "galaxie")
     andromede.magnitudeApparente = 3.4
     println(andromede)
@@ -105,4 +112,18 @@ fun main() {
     println("a-b (surcharge de la méthode associée plus) : ${a-b}")
     println("a*b (surcharge de la méthode associée plus) : ${a*b}")
     println("a/b (surcharge de la méthode associée plus) : ${-a}")
+     val informatique: MaterielInformatique = MaterielInformatique("Server", "assembly")
+    val caisse: caisseBoisson = caisseBoisson("boisson", 12.0)
+    val unConteneur= Conteneur(caisse, 2.0)
+    unConteneur.ajouterPoids(15.0)
+    println(unConteneur)
+ */
+
+fun main() {
+    val unLivre = Livre("derniere page", 255, "Fondation","Isaac Asimov", "Opta", "1957")
+    val deuxLivre = Livre("derniere page", 451, "Fondation","Bradbury", "Denoël ", "1955")
+
+    bibliotheque().ajouterDocument(unLivre)
+    bibliotheque().ajouterDocument(deuxLivre)
+    bibliotheque().afficherTout()
 }
