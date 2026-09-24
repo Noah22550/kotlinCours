@@ -13,6 +13,9 @@ import kotlin.math.abs
 import utils.calculerPuissance
 import utils.calculerTension
 import utils.photo
+import utils.formaterImmatriculation
+import utils.Conteneur2
+import utils.volume
 
 /*
 fun main(){
@@ -136,4 +139,12 @@ fun main() {
 
     val unAstre = Astre.Planete(12742.0, 1, "Terre", "Planete")
     afficherMessage(unAstre)
+
+    val valeur = ""
+    val valeur2 = "siorabelais-22008A"
+    println(valeur.formaterImmatriculation())
+    println(valeur2.formaterImmatriculation())
+    val res = Conteneur2(10.0, 2.0, 2.0)
+    println(res.volume())
 }
+
