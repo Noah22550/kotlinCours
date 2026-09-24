@@ -6,5 +6,4 @@ class planete(override val nom: String, override val magnitude: Double, val dist
 
 }
  fun planete.toPlaneteJson(){
-
  }
