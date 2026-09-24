@@ -6,10 +6,14 @@ import utils.caisseBoisson
 import utils.ObjetMessier
 import utils.PerimetreCercle
 import utils.bibliotheque
+import utils.Astre
+import utils.afficherMessage
 
 import kotlin.math.abs
 import utils.calculerPuissance
 import utils.calculerTension
+import utils.photo
+
 /*
 fun main(){
     val age:  String?
@@ -120,10 +124,16 @@ fun main(){
  */
 
 fun main() {
-    val unLivre = Livre("derniere page", 255, "Fondation","Isaac Asimov", "Opta", "1957")
-    val deuxLivre = Livre("derniere page", 451, "Fondation","Bradbury", "Denoël ", "1955")
+    val bibliotheque = bibliotheque()
 
-    bibliotheque().ajouterDocument(unLivre)
-    bibliotheque().ajouterDocument(deuxLivre)
-    bibliotheque().afficherTout()
+    val livre1 = Livre("Le Petit Prince", 56, "Gallimard", "1943", "Un conte poétique et philosophique ...", "1950")
+    val photo1 = photo(1920, 1080, true, "Coucher de soleil", "Jean Dupont", "Studio Lumière", "2022")
+
+    bibliotheque.ajouterDocument(photo1)
+    bibliotheque.ajouterDocument(livre1)
+
+    bibliotheque.afficherTout()
+
+    val unAstre = Astre.Planete(12742.0, 1, "Terre", "Planete")
+    afficherMessage(unAstre)
 }
