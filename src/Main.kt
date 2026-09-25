@@ -7,6 +7,7 @@ import utils.ObjetMessier
 import utils.PerimetreCercle
 import utils.bibliotheque
 import utils.Astre
+import utils.CentreControleMaritime
 import utils.afficherMessage
 
 import kotlin.math.abs
@@ -15,7 +16,14 @@ import utils.calculerTension
 import utils.photo
 import utils.formaterImmatriculation
 import utils.Conteneur2
+import utils.SondeSpatiale
+import utils.TypeEtoile
+import utils.estBrillant
+import utils.estProche
+import utils.planete
+import utils.toPlaneteJson
 import utils.volume
+import java.time.LocalDateTime
 
 /*
 fun main(){
@@ -146,5 +154,38 @@ fun main() {
     println(valeur2.formaterImmatriculation())
     val res = Conteneur2(10.0, 2.0, 2.0)
     println(res.volume())
+    println("/////////////////////////////")
+    val terre = planete("TERRE", -3.99, 149.6, LocalDateTime.parse("2000-01-01T00:00"))
+    println("brillant ? " + terre.estBrillant())
+    println(terre.toPlaneteJson())
+    println("proche du soleil ? " + terre.estProche() + "\n")
+    val neptune = planete("NEPTUNE", 7.78, 4504.3, LocalDateTime.parse("1846-09-23T00:00"))
+    println("brillant ? " + neptune.estBrillant())
+    println(neptune.toPlaneteJson())
+    println("proche du soleil ? " + neptune.estProche())
+
+    CentreControleMaritime.emettreAlerte("[alerte n°1] tempête de force 9 sur la zone iroise")
+    CentreControleMaritime.emettreAlerte("[alerte n°2] brouillard dense dans l'estuaire")
+    CentreControleMaritime.afficherBilan()
+    println("/////////////////////////////////////////////////////")
+
+    val configuration = "Voyager 1:Héliocentrique:600"
+    val sonde = SondeSpatiale.depuisChaine(configuration)
+    println("Sonde initialisée avec succès :  $sonde")
+    println("Nom : ${sonde.nom} | orbite : ${sonde.orbite} | Autonomie : ${sonde.autonomieMois} mois ")
+
+    println("/////////////////////////////////////////////////////")
+
+    val etoileObservee: TypeEtoile = TypeEtoile.O
+     println("Classification : ${etoileObservee.nom}")
+    println("Couleur dominante : ${etoileObservee.couleur}")
+    print("Caractéristique thermique : ")
+  // Grâce au mot-clé "sealed", le "when" est exhaustif et n'a pas besoin de "else"
+  when (etoileObservee) {
+    is TypeEtoile.O -> etoileObservee.decrireTemperature()
+    is TypeEtoile.G -> etoileObservee.decrireTemperature()
+    is TypeEtoile.M -> etoileObservee.decrireTemperature()
+  }
 }
+
 
