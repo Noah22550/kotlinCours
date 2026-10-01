@@ -186,6 +186,59 @@ fun main() {
     is TypeEtoile.G -> etoileObservee.decrireTemperature()
     is TypeEtoile.M -> etoileObservee.decrireTemperature()
   }
+    println("/////////////////////////////////////////////////////")
+
+    fun calculer(x: Int, y: Int, operation: (x: Int, y: Int) -> Int) = operation(x, y)
+    println(calculer(2, 4, { x : Int, y : Int ->
+    println("Addition des deux paramètres")
+    x + y}) )
+    println(calculer(2, 4, { x : Int, y : Int ->
+    println("Multiplication des deux paramètres")
+    x * y}))
+
+    println("//////////////////////////////////////////////////")
+
+    // 1. Une lambda qui prend un Int et retourne son double
+  val doubler: (Int) -> Int = { x -> x * 2 }
+  println(doubler(5))     // attendu : 10
+
+// 2. Une lambda qui prend deux Int et retourne leur somme
+// TODO : écrire la lambda ici
+    val additionner: (Int, Int) -> Int = { x: Int, y : Int -> x + y}
+  println(additionner(3, 4)) // attendu : 7
+
+// 3. Une lambda sans paramètre qui retourne "Bonjour"
+// TODO : écrire la lambda ici
+    val saluer: (String) -> String = {nom : String -> nom }
+  println(saluer("bonjour")) // attendu : Bonjour
+
+    println("/////////////////////////////////////////")
+
+    fun calculer(x: Double, f: (Double) -> Double): Double {
+      return f(x)
+    }
+    println(calculer(3.5) {x -> x * x })
+    println(calculer(2.0) { x -> x * x * x})
+    println(calculer(4.0) { x -> 1/x})
+    println(calculer(7.2) { x -> - x})
+    println(calculer(-6.5) { x -> if (x > 0.0) x else x * -1 })
+    println("/////////////////////////////////////////")
+    fun repeter(fois: Int, action: (Int) -> Unit) {
+        for(i in 1..fois){
+            action(i)
+        }
+    }
+    repeter(3) { i -> println("Tour n° $i")}
+   println("/////////////////////////////////////////")
+
+    fun entier(a : Double, b : Double, n: Int, f: (Double) -> Double) : Double {
+        //TODO: a refaire
+        for (i in 1 .. n){
+            return f()
+        }
+        return 0.0
+
+    }
 }
 
 
