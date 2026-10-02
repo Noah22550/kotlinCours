@@ -137,6 +137,8 @@ fun main(){
 fun main() {
     val bibliotheque = bibliotheque()
 
+    println("quel bg ce mec !")
+
     val livre1 = Livre("Le Petit Prince", 56, "Gallimard", "1943", "Un conte poétique et philosophique ...", "1950")
     val photo1 = photo(1920, 1080, true, "Coucher de soleil", "Jean Dupont", "Studio Lumière", "2022")
 
@@ -231,14 +233,16 @@ fun main() {
     repeter(3) { i -> println("Tour n° $i")}
    println("/////////////////////////////////////////")
 
-    fun entier(a : Double, b : Double, n: Int, f: (Double) -> Double) : Double {
-        //TODO: a refaire
+    fun integer(a : Double, b : Double, n: Int, f: (Double) -> Double): Double {
+        var somme = 0.0
         for (i in 1 .. n){
-            return f()
+         val x = a + (i - 0.5) * (b - a) / n
+          somme += f(x)
         }
-        return 0.0
-
+        return somme * (b - a) / n
     }
+   println(integer(0.0, 1.0, 1000) { x -> x*x })
+
 }
 
 
