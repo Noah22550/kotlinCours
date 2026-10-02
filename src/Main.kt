@@ -24,6 +24,7 @@ import utils.planete
 import utils.toPlaneteJson
 import utils.volume
 import java.time.LocalDateTime
+import kotlin.math.round
 
 /*
 fun main(){
@@ -241,8 +242,37 @@ fun main() {
         }
         return somme * (b - a) / n
     }
-   println(integer(0.0, 1.0, 1000) { x -> x*x })
+   println(integer(0.0, 1.0, 100000000) { x -> x*x })
+
+
+    println("/////////////////////////////////////////")
+
+    fun calculerVAN (fluxFutur: Double, taux: Double,annees: Int, change: (Double) -> Double ): Double {
+        var res = 1.0
+        for(i in 1.. annees){
+           res *= (1 + taux)
+        }
+        return change(fluxFutur / res)
+    }
+    println()
+    println("VAN brute, sans transformation :"+calculerVAN(1000.0,0.07 , 10, { x -> x}))
+    println("VAN brute, sans transformation  arrondi  :"+round(calculerVAN(1000.0,0.07 , 10, { x -> x})))
+    println("VAN  avec marge de sécurité de 5% :"+ calculerVAN(1000.0,0.07 , 10, { x -> x * 0.95 }))
+    println("VAN brute, estimée en Dollars (1EUR=1.08 USD), avec risque de change de 2% :"+ calculerVAN(1000.0,0.07 , 10, { x -> x *(1.08) * 0.98 }))
+    println("/////////////////////13.6.6Composer des fonctions///////////////////////////////////////////////////////")
+
+    fun appliquerDeuxFois(x: Double, f: (Double) -> Double): Double {
+        return f(f(x))
+    }
+    fun composer(x: Double, f: (Double)-> Double , g:  (Double) -> Double): Double {
+        return g(f(x))
+    }
+    println(appliquerDeuxFois(5.0, {x -> x + 10}))
+    println(appliquerDeuxFois(3.0,{x -> x * 2.0}))
+    println(composer (4.0, { x -> x + 1}, { x -> x * 2 }))
+
 
 }
+
 
 
