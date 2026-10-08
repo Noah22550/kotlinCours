@@ -180,97 +180,176 @@ fun main() {
     println("/////////////////////////////////////////////////////")
 
     val etoileObservee: TypeEtoile = TypeEtoile.O
-     println("Classification : ${etoileObservee.nom}")
+    println("Classification : ${etoileObservee.nom}")
     println("Couleur dominante : ${etoileObservee.couleur}")
     print("Caractéristique thermique : ")
-  // Grâce au mot-clé "sealed", le "when" est exhaustif et n'a pas besoin de "else"
-  when (etoileObservee) {
-    is TypeEtoile.O -> etoileObservee.decrireTemperature()
-    is TypeEtoile.G -> etoileObservee.decrireTemperature()
-    is TypeEtoile.M -> etoileObservee.decrireTemperature()
-  }
+    // Grâce au mot-clé "sealed", le "when" est exhaustif et n'a pas besoin de "else"
+    when (etoileObservee) {
+        is TypeEtoile.O -> etoileObservee.decrireTemperature()
+        is TypeEtoile.G -> etoileObservee.decrireTemperature()
+        is TypeEtoile.M -> etoileObservee.decrireTemperature()
+    }
     println("/////////////////////////////////////////////////////")
 
     fun calculer(x: Int, y: Int, operation: (x: Int, y: Int) -> Int) = operation(x, y)
-    println(calculer(2, 4, { x : Int, y : Int ->
-    println("Addition des deux paramètres")
-    x + y}) )
-    println(calculer(2, 4, { x : Int, y : Int ->
-    println("Multiplication des deux paramètres")
-    x * y}))
+    println(calculer(2, 4, { x: Int, y: Int ->
+        println("Addition des deux paramètres")
+        x + y
+    }))
+    println(calculer(2, 4, { x: Int, y: Int ->
+        println("Multiplication des deux paramètres")
+        x * y
+    }))
 
     println("//////////////////////////////////////////////////")
 
     // 1. Une lambda qui prend un Int et retourne son double
-  val doubler: (Int) -> Int = { x -> x * 2 }
-  println(doubler(5))     // attendu : 10
+    val doubler: (Int) -> Int = { x -> x * 2 }
+    println(doubler(5))     // attendu : 10
 
 // 2. Une lambda qui prend deux Int et retourne leur somme
 // TODO : écrire la lambda ici
-    val additionner: (Int, Int) -> Int = { x: Int, y : Int -> x + y}
-  println(additionner(3, 4)) // attendu : 7
+    val additionner: (Int, Int) -> Int = { x: Int, y: Int -> x + y }
+    println(additionner(3, 4)) // attendu : 7
 
 // 3. Une lambda sans paramètre qui retourne "Bonjour"
 // TODO : écrire la lambda ici
-    val saluer: (String) -> String = {nom : String -> nom }
-  println(saluer("bonjour")) // attendu : Bonjour
+    val saluer: (String) -> String = { nom: String -> nom }
+    println(saluer("bonjour")) // attendu : Bonjour
 
     println("/////////////////////////////////////////")
 
     fun calculer(x: Double, f: (Double) -> Double): Double {
-      return f(x)
+        return f(x)
     }
-    println(calculer(3.5) {x -> x * x })
-    println(calculer(2.0) { x -> x * x * x})
-    println(calculer(4.0) { x -> 1/x})
-    println(calculer(7.2) { x -> - x})
+    println(calculer(3.5) { x -> x * x })
+    println(calculer(2.0) { x -> x * x * x })
+    println(calculer(4.0) { x -> 1 / x })
+    println(calculer(7.2) { x -> -x })
     println(calculer(-6.5) { x -> if (x > 0.0) x else x * -1 })
     println("/////////////////////////////////////////")
     fun repeter(fois: Int, action: (Int) -> Unit) {
-        for(i in 1..fois){
+        for (i in 1..fois) {
             action(i)
         }
     }
-    repeter(3) { i -> println("Tour n° $i")}
-   println("/////////////////////////////////////////")
+    repeter(3) { i -> println("Tour n° $i") }
+    println("/////////////////////////////////////////")
 
-    fun integer(a : Double, b : Double, n: Int, f: (Double) -> Double): Double {
+    fun integer(a: Double, b: Double, n: Int, f: (Double) -> Double): Double {
         var somme = 0.0
-        for (i in 1 .. n){
-         val x = a + (i - 0.5) * (b - a) / n
-          somme += f(x)
+        for (i in 1..n) {
+            val x = a + (i - 0.5) * (b - a) / n
+            somme += f(x)
         }
         return somme * (b - a) / n
     }
-   println(integer(0.0, 1.0, 100000000) { x -> x*x })
+    println(integer(0.0, 1.0, 100000000) { x -> x * x })
 
 
     println("/////////////////////////////////////////")
 
-    fun calculerVAN (fluxFutur: Double, taux: Double,annees: Int, change: (Double) -> Double ): Double {
+    fun calculerVAN(fluxFutur: Double, taux: Double, annees: Int, change: (Double) -> Double): Double {
         var res = 1.0
-        for(i in 1.. annees){
-           res *= (1 + taux)
+        for (i in 1..annees) {
+            res *= (1 + taux)
         }
         return change(fluxFutur / res)
     }
     println()
-    println("VAN brute, sans transformation :"+calculerVAN(1000.0,0.07 , 10, { x -> x}))
-    println("VAN brute, sans transformation  arrondi  :"+round(calculerVAN(1000.0,0.07 , 10, { x -> x})))
-    println("VAN  avec marge de sécurité de 5% :"+ calculerVAN(1000.0,0.07 , 10, { x -> x * 0.95 }))
-    println("VAN brute, estimée en Dollars (1EUR=1.08 USD), avec risque de change de 2% :"+ calculerVAN(1000.0,0.07 , 10, { x -> x *(1.08) * 0.98 }))
+    println("VAN brute, sans transformation :" + calculerVAN(1000.0, 0.07, 10, { x -> x }))
+    println("VAN brute, sans transformation  arrondi  :" + round(calculerVAN(1000.0, 0.07, 10, { x -> x })))
+    println("VAN  avec marge de sécurité de 5% :" + calculerVAN(1000.0, 0.07, 10, { x -> x * 0.95 }))
+    println(
+        "VAN brute, estimée en Dollars (1EUR=1.08 USD), avec risque de change de 2% :" + calculerVAN(
+            1000.0,
+            0.07,
+            10,
+            { x -> x * (1.08) * 0.98 })
+    )
     println("/////////////////////13.6.6Composer des fonctions///////////////////////////////////////////////////////")
 
     fun appliquerDeuxFois(x: Double, f: (Double) -> Double): Double {
         return f(f(x))
     }
-    fun composer(x: Double, f: (Double)-> Double , g:  (Double) -> Double): Double {
+
+    fun composer(x: Double, f: (Double) -> Double, g: (Double) -> Double): Double {
         return g(f(x))
     }
-    println(appliquerDeuxFois(5.0, {x -> x + 10}))
-    println(appliquerDeuxFois(3.0,{x -> x * 2.0}))
-    println(composer (4.0, { x -> x + 1}, { x -> x * 2 }))
+    println(appliquerDeuxFois(5.0, { x -> x + 10 }))
+    println(appliquerDeuxFois(3.0, { x -> x * 2.0 }))
+    println(composer(4.0, { x -> x + 1 }, { x -> x * 2 }))
+    println("////////////////////////////////////////////////////////////////////////////")
 
+    fun transformer(liste: List<Int>, operation: (Int) -> Int): List<Int> {
+        var nouvListe: List<Int> = listOf()
+        for (i in liste) {
+            nouvListe += operation(i)
+        }
+        return nouvListe
+    }
+
+    val liste = listOf(1, 2, 3, 4)
+
+    println(transformer(liste) { x -> x + x })
+
+    println("////////////////////////////////////////////////////////////////////////////")
+
+
+    fun List<Int>.transformer2(operation: (Int) -> Int) = this.map { operation(it) }
+    println(liste.transformer2 { it * 2 })
+
+    println("////////////////////////////////////////////////////////////////////////////")
+
+    data class Observation(
+        val objet: String,
+        val temperatureK: Int,
+        val typeSpectral: String,
+        val estValide: Boolean
+    )
+
+    val fluxDonnees = listOf(
+        Observation("Etoile-A", 5500, "G", true),
+        Observation("Etoile-B", 3000, "M", false), // Donnée invalide
+        Observation("Etoile-C", 12000, "B", true),
+        Observation("Etoile-D", 4500, "K", true),
+        Observation("Etoile-E", 25000, "O", true)
+    )
+    val tri = fluxDonnees.filter { it.temperatureK > 5000 }
+    println(
+        "analyse standard : ${tri[0].objet} en cours " + "\n" +
+                "Priorité Haute : ${tri[1].objet} détectée " + "\n" +
+                "Priorité Haute : ${tri[2].objet} détectée " + "\n"
+    )
+    println("////////////////////////////////////////////////////////////////////////////")
+
+    data class Livre(val titre: String, val estEmprunte: Boolean)
+
+    val bibliotheque2 = listOf(
+        Livre("Le Petit Prince", true),
+        Livre("1984", false),
+        Livre("La guerre des mouches", true),
+        Livre("Fondation", false)
+    )
+    bibliotheque2.filter { it.estEmprunte }
+    .sortedBy { it.titre }
+    .forEach { println(" le livre ' ${it.titre} ' est emprunté") }
+
+    println("////////////////////////////////////////////////////////////////////////////")
+
+    val indices = (0..4)
+    indices.forEach { x -> println( 1 / Math.pow(2.0, x.toDouble()))}
+
+    data class Exoplanete(val nom: String, val distanceAl: Int, val estHabitable: Boolean)
+
+
+    val catalogue = listOf(
+      Exoplanete("Proxima Centauri b", 4, true),
+      Exoplanete("Kepler-452b", 1400, true),
+      Exoplanete("WASP-17b", 1300, false),
+      Exoplanete("TRAPPIST-1e", 39, true),
+      Exoplanete("HD 189733b", 64, false)
+    )
 
 }
 
