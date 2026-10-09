@@ -1,18 +1,9 @@
-import utils.Conteneur
-import utils.Fraction
 import utils.Livre
-import utils.MaterielInformatique
-import utils.caisseBoisson
-import utils.ObjetMessier
-import utils.PerimetreCercle
 import utils.bibliotheque
 import utils.Astre
 import utils.CentreControleMaritime
 import utils.afficherMessage
 
-import kotlin.math.abs
-import utils.calculerPuissance
-import utils.calculerTension
 import utils.photo
 import utils.formaterImmatriculation
 import utils.Conteneur2
@@ -24,6 +15,7 @@ import utils.planete
 import utils.toPlaneteJson
 import utils.volume
 import java.time.LocalDateTime
+import kotlin.math.pow
 import kotlin.math.round
 
 /*
@@ -134,7 +126,7 @@ fun main(){
     unConteneur.ajouterPoids(15.0)
     println(unConteneur)
  */
-
+const val UA_EN_MILLIONS_KM = 149.6
 fun main() {
     val bibliotheque = bibliotheque()
 
@@ -332,26 +324,109 @@ fun main() {
         Livre("Fondation", false)
     )
     bibliotheque2.filter { it.estEmprunte }
-    .sortedBy { it.titre }
-    .forEach { println(" le livre ' ${it.titre} ' est emprunté") }
+        .sortedBy { it.titre }
+        .forEach { println(" le livre ' ${it.titre} ' est emprunté") }
 
     println("////////////////////////////////////////////////////////////////////////////")
 
     val indices = (0..4)
-    indices.forEach { x -> println( 1 / Math.pow(2.0, x.toDouble()))}
+    indices.forEach { x -> println(1 / Math.pow(2.0, x.toDouble())) }
 
     data class Exoplanete(val nom: String, val distanceAl: Int, val estHabitable: Boolean)
 
 
     val catalogue = listOf(
-      Exoplanete("Proxima Centauri b", 4, true),
-      Exoplanete("Kepler-452b", 1400, true),
-      Exoplanete("WASP-17b", 1300, false),
-      Exoplanete("TRAPPIST-1e", 39, true),
-      Exoplanete("HD 189733b", 64, false)
+        Exoplanete("Proxima Centauri b", 4, true),
+        Exoplanete("Kepler-452b", 1400, true),
+        Exoplanete("WASP-17b", 1300, false),
+        Exoplanete("TRAPPIST-1e", 39, true),
+        Exoplanete("HD 189733b", 64, false)
     )
+    val cat = catalogue.filter { it.estHabitable }
+        .sortedBy { it.distanceAl }
+        .map { it.nom + " (${it.distanceAl} AL)" }
+        .joinToString(separator = " / ", prefix = "Catalogue des mondes habitables : ", postfix = ".")
+    println(cat)
+    println("////////////////////////////////////////////////////////////////////////////")
 
+    data class CorpsCeleste(val nom: String, val distanceUA: Double)
+
+    val catalogueSpatial = listOf(
+        CorpsCeleste("Mercure", 0.39),
+        CorpsCeleste("Venus", 0.72),
+        CorpsCeleste("Terre", 1.0),
+        CorpsCeleste("Mars", 1.52),
+        CorpsCeleste("Jupiter", 5.2),
+        CorpsCeleste("Saturne", 9.5),
+        CorpsCeleste("Uranus", 19.2),
+        CorpsCeleste("Neptune", 30.1),
+        CorpsCeleste("Pluton", 39.5),
+        CorpsCeleste("Eris", 67.7),
+        CorpsCeleste("Sedna", 480.0)
+    )
+    catalogueSpatial.filter { it.distanceUA > 30 }
+                    .forEach { println("Objet lointain : ${it.nom} à ${(it.distanceUA * UA_EN_MILLIONS_KM).toInt() } millions de km" ) }
+
+
+    data class Candidat(val nom: String, val prenom: String, val moyenneG:  Double, val certifP:  Double)
+
+    val lesCandidats = listOf(
+    Candidat("Dupont", "Pierre", 11.0, 12.0), // OK, moyenne générale : 11, pro : 12
+    Candidat("Durant", "Jean", 8.5, 11.0), // rattrapage OK
+    Candidat("Jaouen", "Yann", 7.0, 8.0), // recalé
+    Candidat("Le Flem", "Paul", 7.5, 15.0), // recalé
+    Candidat("Ropartz", "Guy", 15.0, 17.0), // OK
+    Candidat("Cras", "Jean", 9.0, 14.0), // rattrapage OK
+    Candidat("Ravel", "Marcel", 9.5, 10.0), // recalé, moyenne<10
+  )
+    fun List<Candidat>.getListCandidatsRepeches() = lesCandidats.filter{it.moyenneG >  8 && it.moyenneG < 10 && it.certifP > 10 && it.certifP <= 20 }
+                                                                .map{" \n ${it.nom} ${it.prenom} : ${it.moyenneG} - ${it.certifP}"}
+                                                                .joinToString ()
+
+  println("Liste des candidats repéchés :\n${lesCandidats.getListCandidatsRepeches()}")
+
+    val fibonacciSeq = sequence {
+    var a = 0
+    var b = 1
+    yield(1)
+    while (true) {
+      yield(a + b)
+      val tmp = a + b
+      a = b
+      b = tmp
+    }
+  }
+  println("Première consommation : Les 10 premiers nombres de Fibonacci :")
+  fibonacciSeq.take(10).forEach { print("$it - ") } // Prend les 10 premiers et les affiche
+  println("\nDeuxième consommation : Le 15ème nombre de Fibonacci :")
+  // Note : prendre un élément spécifique implique de calculer tous les précédents
+  println(fibonacciSeq.drop(14).first())
+
+
+
+
+    val puissanceSeq  = sequence {
+        var  a = 2
+        var b = 1
+        yield(1)
+        while (true) {
+            yield( a * b )
+            a *= 2
+        }
+    }
+      puissanceSeq.take(10).forEach { print("$it - " ) }
+
+    val SyracuseSeq = sequence {
+        var a = 12
+        while (a != 1) {
+            yield(a)
+                if(a %  2 == 0) {
+                    a /= 2
+                }else {
+                    a = a * 3 + 1
+                }
+        }
+    }
+      SyracuseSeq.take(10).forEach { print("  $it - ") }
 }
-
-
 
